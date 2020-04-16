@@ -1,10 +1,7 @@
 from prompt_toolkit import PromptSession
-
 from pytube import YouTube
-import ffmpy
 import sys
 import os
-
 
 # Variables
 run = False
@@ -27,14 +24,12 @@ def case_1():
     else:
         urls.append(strInput)
 
-
-
-
 # perform download and output to output folder
 def case_2():
     global run
     global urls
     directory = os.getcwd() + "/output_folder/"
+    
     # Iterate through urls List
     for url in urls:
         # Create Youtube obj with specified URL
@@ -56,7 +51,6 @@ def case_2():
         else:
             continue
 
-
     strPrompt = "Download more(yes/no)? >>>"
     strInput = session.prompt(strPrompt)
 
@@ -68,10 +62,6 @@ def case_2():
         sys.exit(1)
 
 
-
-
-
-#
 def switch():
     global run
 
@@ -87,7 +77,7 @@ switcher = {
 }
 
 def main():
-    # os.system('cls')
+    os.system('cls')
 
     while True:
         switch()
