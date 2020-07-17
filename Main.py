@@ -1,7 +1,8 @@
 from prompt_toolkit import PromptSession
 from pytube import YouTube
 import sys
-import os
+from os import system, name
+
 
 # Variables
 run = False
@@ -13,7 +14,7 @@ def case_1():
     global run
     global urls
 
-    strPrompt = "Enter URL/'run' >>> "
+    strPrompt = "Enter URL(s) -> 'run' >>> "
 
     strInput = session.prompt(strPrompt)
 
@@ -29,17 +30,19 @@ def case_2():
     global run
     global urls
     directory = os.getcwd() + "/output_folder/"
-    
+
     # Iterate through urls List
     for url in urls:
         # Create Youtube obj with specified URL
         yt = YouTube(url)
-        fileName = yt.title.replace(" ", "_")
+        file_name = yt.streams[0].default_filename.replace(" ", "_").replace("(","[").replace(")","]")
+        
 
         stream = yt.streams.filter(only_audio=True).first()
-        stream.download(directory, fileName)
+        stream.download(directory, file_name)
 
-        print(fileName + " outputted to output_folder.")
+        print(file_name + " outputted to output_folder.")
+
 
     for filename in os.listdir(directory):
         outputDir = directory + filename
@@ -51,6 +54,7 @@ def case_2():
         else:
             continue
 
+    
     strPrompt = "Download more(yes/no)? >>>"
     strInput = session.prompt(strPrompt)
 
@@ -76,8 +80,18 @@ switcher = {
     2: case_2
 }
 
+
+def clear():
+    #for windows 
+    if name == 'nt':
+        _ = system('cls')
+    #for unix
+    else:
+        _ = system('clear')
+
 def main():
-    os.system('cls')
+    #os.system('cls')
+
 
     while True:
         switch()
