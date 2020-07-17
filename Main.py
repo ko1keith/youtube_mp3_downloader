@@ -80,7 +80,7 @@ switcher = {
     2: case_2
 }
 
-
+#clear terminal screen
 def clear():
     #for windows 
     if name == 'nt':
