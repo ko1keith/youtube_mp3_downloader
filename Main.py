@@ -88,6 +88,7 @@ def clear():
     #for unix
     else:
         _ = system('clear')
+        
 
 def main():
     #os.system('cls')
