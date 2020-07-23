@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter.ttk import *
 from Download import Download
 import math
-
+import os
 class GUI(Frame):
 
     def __init__(self, master=None):
@@ -22,7 +22,6 @@ class GUI(Frame):
         self.url_entry.place(relx=0.2,rely=0.1)
 
         #Enter Button, when this button is pressed, user entered url will be added to self.urls
-
         self.button_enter = Button(master, command=self.enter_button_click ,text="Enter")
         self.button_enter.place(relx=0.9,rely=0.1)
 
@@ -30,11 +29,17 @@ class GUI(Frame):
         self.url_listbox = Listbox(master, selectmode=SINGLE, width="110", height="18")
         self.url_listbox.place(relx=0.1, rely=0.2)
 
+        #download button, download_button_click method is called when button is clicked
         self.button_download = Button(master,command=self.download_button_click, text="Download")
         self.button_download.place(relx=0.9, rely=0.9)
 
+        #calls reset_button_click method when button is clicked
         self.button_reset = Button(master, command=self.reset_button_click, text="Reset")
         self.button_reset.place(relx=0.8, rely=0.9)
+
+        #opens output folder when button is clicked
+        self.button_open = Button(master, command=self.opon_button_click, text="Open folder")
+        self.button_open.place(relx=0.7, rely=0.9)
 
         #progess bar
         self.progress = Progressbar(master, orient = HORIZONTAL, length=665, mode='determinate')
@@ -61,7 +66,6 @@ class GUI(Frame):
 
     #takes list of urls and downloads mp3
     def download_button_click(self):
-        
         download = Download()
         
         progress_step = int((100.0/len(self.urls)))
@@ -70,16 +74,18 @@ class GUI(Frame):
             self.master.update()
             download.download_url(url)
             prog += progress_step
-            print(prog)
             self.progress['value'] = prog
         self.progress['value'] = 100
 
     def reset_button_click(self):
-        print("reset button clicked")
         self.urls = []
         self.progress['value']=0
         self.refresh_listbox()
         self.master.update()
+
+    def opon_button_click(self):
+        path = os.getcwd() + "/output_folder/"
+        os.startfile(path)
                 
     # Delete the url entry when "Enter" button is pressed
     def clear_entry(self):
