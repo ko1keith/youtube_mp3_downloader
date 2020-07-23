@@ -11,4 +11,4 @@ Usage:
   - copy and past URL(s) into user prompt
   - Download
   
- ![Screenshot](images/screenshot.png)
+![Screenshot](images/screenshot.PNG)
