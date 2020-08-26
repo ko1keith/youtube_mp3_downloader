@@ -10,5 +10,3 @@ Usage:
   - $python3 GUI.py
   - copy and past URL(s) into user prompt
   - Download
-  
-![Screenshot](images/screenshot.PNG)
